@@ -1,5 +1,8 @@
+from encodings import utf_8
 from os import path
 import json
+
+from numpy import identity
 
 def extract_route(s): #string
     return s.split()[1][1:]
@@ -22,4 +25,9 @@ def load_template(fN): #fileName
         return f.read()
 
 def save_params(d): #dict of params
-    return "lol"
+    with open ("data/note.json", "r", encoding=utf_8) as file:
+        data = json.load(file)
+    data.append(d)
+
+    with open ("data/note.json", "w", encoding=utf_8) as file:
+        json.dump(data, file, ensure_ascii=False, ident = 4)

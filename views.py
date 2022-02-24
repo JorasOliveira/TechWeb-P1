@@ -17,8 +17,7 @@ def index(request):
             # AQUI É COM VOCE
             split = chave_valor.split('=')
             params[split[0]] = split[1]
-        
-        print(params)
+            
         save_params(params)
 
     # Cria uma lista de <li>'s para cada anotação
