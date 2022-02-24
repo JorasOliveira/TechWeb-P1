@@ -11,14 +11,13 @@ def read_file(p): #path
     with open(p, "rb") as b:
         return b.read()
 
-def load_data(p): #path
-    p = path.join("data/", p)
+def load_data(fN): #path
+    p = path.join("data/", fN)
     with open(p) as j:
         return json.loads(j.read())
 
-def load_template(p): #path
-    p = path.join("templates/", p)
-    print(p)
+def load_template(fN): #fileName
+    p = path.join("templates/", fN)
     with open(p) as f:
         return f.read()
 
