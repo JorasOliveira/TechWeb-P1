@@ -1,5 +1,6 @@
-from utils import load_data, load_template, save_params
-
+from utils import load_data, load_template, build_response, save_params
+from urllib.parse import unquote_plus
+import json
 def index(request):
     # A string de request sempre começa com o tipo da requisição (ex: GET, POST)
     if request.startswith('POST'):
@@ -28,5 +29,20 @@ def index(request):
         for dados in load_data('notes.json')
     ]
     notes = '\n'.join(notes_li)
+    
+    body = load_template('index.html').format(notes=notes)
 
-    return load_template('index.html').format(notes=notes).encode()
+    if request.startswith('POST'):
+        return build_response(body=body, code=303, reason='See Other', headers='Location: /')
+    else:
+        return build_response(body=body)
+
+def add_nota(params):
+    with open("data/notes.json", "r", encoding="utf-8") as file:
+        data = json.load(file)
+
+    data.append(params)
+
+
+    with open("data/notes.json", "w", encoding="utf-8") as file:
+        json.dump(data, file, ensure_ascii=False, indent=4)

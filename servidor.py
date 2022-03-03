@@ -1,6 +1,6 @@
 import socket
 from pathlib import Path
-from utils import extract_route, read_file
+from utils import extract_route, read_file, build_response
 from views import index
 
 CUR_DIR = Path(__file__).parent
@@ -30,7 +30,7 @@ while True:
     else:
         response = bytes()
 
-    client_connection.sendall('HTTP/1.1 200 OK\n\n'.encode() + response)
+    client_connection.sendall(build_response() + response)
 
     client_connection.close()
 

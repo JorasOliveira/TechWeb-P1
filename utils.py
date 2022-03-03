@@ -1,6 +1,8 @@
+from email import header
 from encodings import utf_8
 from os import path
 import json
+from urllib import response
 
 from numpy import identity
 
@@ -31,3 +33,15 @@ def save_params(d): #dict of params
 
     with open ("data/note.json", "w", encoding=utf_8) as file:
         json.dump(data, file, ensure_ascii=False, ident = 4)
+
+def build_response(body = '', code = 200, reason = 'ok', headers = ''): 
+    #se chama a funcao vazia, os valores usados sao os expecificados aqui, porem pode chamar declarando os valores
+    #entao a funcao usa os valores declarados como override dos padroes
+    response = f'HTTP/1.1 {code} {reason}' #fstring
+    if headers:
+        response +=  f'\n{header}'
+
+    response += f'\n\n{body}'
+
+    return(response.encode())
+ 
